@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: bb-petclininc
+   namespace: default
+spec:
+   replicas: 1
+   selector:
+      matchLabels:
+         bb: web
+   template:
+      metadata:
+         labels:
+            bb: web
+      spec:
+         containers:
+            - name: spring-petclinic-postgres-1
+              image: postgres:16.1
+              imagePullPolicy: Never
+            - name: petclinic
+              image: petclinic:latest
+              imagePullPolicy: Never 
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: bb-entrypoint
+   namespace: default
+spec:
+   type: NodePort
+   selector:
+      bb: web
+   ports:
+      - port: 3000
+        targetPort: 3000
+        nodePort: 30001
