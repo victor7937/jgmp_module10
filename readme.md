@@ -1,4 +1,4 @@
-## Start up with Docker, Minikube and Helm
+## Start application with Docker, Minikube and Helm
 ```
 docker compose --profile postgres up
 minikube start
