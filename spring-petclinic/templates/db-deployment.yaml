@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.database.name }}
+  labels:
+    app: {{ .Values.database.name }}
+    tier: database
+spec:
+  selector: 
+    matchLabels:
+      app: {{ .Values.database.name }}
+      tier: database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.database.name }}
+        tier: database
+    spec:
+      containers:
+        - name: {{ .Values.database.container.name }}
+          image: {{ .Values.database.container.image }}
+          imagePullPolicy: {{ .Values.database.container.imagePullPolicy }}
+          env:
+            - name: POSTGRES_PASSWORD
+              value: petclinic
+            - name: POSTGRES_USER 
+              value: petclinic
+            - name: POSTGRES_DB
+              value: petclinic
+          ports:
+            - containerPort: {{ .Values.database.port }}
+              name: {{ .Values.database.name }}
+    

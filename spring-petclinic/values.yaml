@@ -1,0 +1,23 @@
+# Default values for spring-petclinic.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+database:
+  name: postgres
+  container: 
+    name: spring-petclinic-postgres-1
+    image: postgres:16.1
+    imagePullPolicy: Never
+  port: 5432
+
+
+petclinic:
+  appName: petclinic-app
+  deploymentName: petclinic-deployment
+  container: 
+    name: petclinic
+    image: petclinic:latest
+    imagePullPolicy: Never
+  port: 8080
+  targetPort: 8080
+

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.petclinic.deploymentName }} 
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.petclinic.appName }} 
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.petclinic.appName }} 
+    spec:
+      containers:
+        - name: {{ .Values.petclinic.container.name }} 
+          image: {{ .Values.petclinic.container.image }}
+          imagePullPolicy: {{ .Values.petclinic.container.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.petclinic.port }}
+          env:   # Setting Enviornmental Variables
+            - name: POSTGRES_PASSWORD
+              value: petclinic
+            - name: POSTGRES_USER # Setting Database Name from a 'ConfigMap'
+              value: petclinic
+            - name: POSTGRES_DB
+              value: petclinic
+
+
+
+

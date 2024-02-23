@@ -1,0 +1,31 @@
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: petclinic-service
+spec:
+  selector:
+    app: {{ .Values.petclinic.appName }} 
+  ports:
+    - protocol: "TCP"
+      port: {{ .Values.petclinic.port }} # The port that the service is running on in the cluster
+      targetPort: {{ .Values.petclinic.targetPort }} # The port exposed by the service
+  type: LoadBalancer # type of the service.
+  
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.database.name }}
+  labels:
+    app: {{ .Values.database.name }}
+    tier: database
+spec:
+  ports:
+    - port: {{ .Values.database.port }}
+      targetPort: {{ .Values.database.port }}
+  selector:      
+    app: {{ .Values.database.name }}
+    tier: database
+  clusterIP: None  
+  
