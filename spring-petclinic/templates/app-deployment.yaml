@@ -18,10 +18,10 @@ spec:
           imagePullPolicy: {{ .Values.petclinic.container.imagePullPolicy }}
           ports:
             - containerPort: {{ .Values.petclinic.port }}
-          env:   # Setting Enviornmental Variables
+          env:  
             - name: POSTGRES_PASSWORD
               value: petclinic
-            - name: POSTGRES_USER # Setting Database Name from a 'ConfigMap'
+            - name: POSTGRES_USER
               value: petclinic
             - name: POSTGRES_DB
               value: petclinic
