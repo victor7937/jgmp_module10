@@ -15,7 +15,9 @@ pipeline {
       //    }       
       // }
       stage('helm build'){
-         sh 'helm install spring-petclinic-app  ./spring-petclinic'
+         steps{
+            sh 'helm install spring-petclinic-app  ./spring-petclinic'
+         }
       }
    }
 }
